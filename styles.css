@@ -1,0 +1,27 @@
+.row,
+.column {
+    width: 31.25px;
+    height: 31.25px;
+    flex-shrink: 0;
+}
+
+.column {
+    border: 1px solid red;
+}
+
+.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+}
+
+.row {
+    display: flex;
+}
+
+.generate {
+    margin-bottom: 16px;
+}
