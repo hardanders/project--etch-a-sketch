@@ -1,5 +1,6 @@
 let size = 16;
 let chosenColor = 'red';
+let rgbToggle = false;
 const container = document.querySelector('.container');
 const sizeBtn = document.querySelector('.pixel-button');
 const blackBtn = document.querySelector('.black');
@@ -7,6 +8,15 @@ const redBtn = document.querySelector('.red');
 const rgbBtn = document.querySelector('.rgb');
 const eraser = document.querySelector('.eraser');
 const reset = document.querySelector('.reset');
+
+function addListeners() {
+    let colArray = Array.from(document.querySelectorAll('.column'));
+    for (let col of colArray) {
+        col.addEventListener('mouseover', () => {
+            rgbToggle ? rainbow(col) : toggleColor(col);
+        });
+    }
+}
 
 window.addEventListener('load', () => {
     createGrid();
@@ -17,22 +27,34 @@ sizeBtn.addEventListener('click', () => {
 })
 
 blackBtn.addEventListener('click', () => {
-    addListeners();
-    chosenColor = 'black';
+    if (rgbToggle == true) {
+        toggleRgb();
+        chosenColor = 'black';
+    } else {
+        chosenColor = 'black';
+    }
 })
 
 redBtn.addEventListener('click', () => {
-    addListeners();
-    chosenColor = 'red';
+    if (rgbToggle == true) {
+        toggleRgb();
+        chosenColor = 'red';
+    } else {
+        chosenColor = 'red';
+    }
 })
 
 rgbBtn.addEventListener('click', () => {
-    rainbow();
-})
-
+    toggleRgb();
+}) 
+ 
 eraser.addEventListener('click', () => {
-    addListeners;
-    chosenColor = 'white';
+    if (rgbToggle == true) {
+        toggleRgb();
+        chosenColor = 'white';
+    } else {
+        chosenColor = 'white';
+    }
 })
 
 reset.addEventListener('click', () => {
@@ -55,28 +77,6 @@ function changeSize(num) {
     }
 }
 
-function randomColor() {
-    let randomNum = Math.floor(Math.random() * 16777215).toString(16);
-    let randomColor = '#' + randomNum;
-    return randomColor;
-}
-
-function rainbow() {
-    const newCon = document.getElementsByClassName('container');
-    for (let i = 0; i < newCon.length; i++) {
-        newCon[i].addEventListener("mouseover", handlemouseover);
-        newCon[i].addEventListener("mouseout", handlemouseout);
-    }
-}
-
-function handlemouseover() {
-    chosenColor = randomColor();
-}
-
-function handlemouseout() {
-    chosenCOlor = randomColor();
-}
-
 function createGrid() {
     container.innerHTML = '';
     for (i = 1; i <= size; i++) {
@@ -86,7 +86,7 @@ function createGrid() {
     conArray.forEach(con => {
         createRow(con);
     })
-    addListeners();
+    addListeners(); 
     setGridSize();
 }
 
@@ -96,21 +96,16 @@ function createRow(con) {
     }
 }
 
-function addListeners() {
-    let colArray = Array.from(document.querySelectorAll('.column'));
-    for (let col of colArray) {
-            col.addEventListener('mouseover', () => {
-                toggleColor(col);
-            });
-        }
-    }
-
 function toggleColor(col) {
-    /* if (col.style.backgroundColor != chosenColor) { */
-        col.style.backgroundColor = chosenColor;
-/*     } else {
-        col.style.backgroundColor = document.body.style.backgroundColor;
-    } */
+    col.style.backgroundColor = chosenColor;
+}
+
+function toggleRgb() {
+    if (!rgbToggle) {
+        rgbToggle = true;
+    } else {
+        rgbToggle = false;
+    }
 }
 
 function setGridSize() {
@@ -122,4 +117,14 @@ function setGridSize() {
         col.style.width = (width[0] / size - (sq*2)) + 'px';
         col.style.height = (width[0] / size - (sq*2)) + 'px';
     }
+}
+
+function randomColor() {
+    let randomNum = Math.floor(Math.random() * 16777215).toString(16);
+    let randomColor = '#' + randomNum;
+    return randomColor;
+}
+function rainbow(col) {
+    chosenColor = randomColor();
+    toggleColor(col);
 }
