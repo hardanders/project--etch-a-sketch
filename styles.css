@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: palegreen;
 }
 
 .row,
@@ -26,6 +27,7 @@ body {
     height: 800px;
     margin: 0;
     padding: 0;
+    background-color: white;
 }
 
 .row {
@@ -46,5 +48,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
+}
+
+.button-con {
+    margin-top: 8px;
+}
+
+.reset {
+    margin-top: 8px;
 }
